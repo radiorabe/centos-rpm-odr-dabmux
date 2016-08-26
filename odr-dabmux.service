@@ -1,0 +1,14 @@
+[Unit]
+Description=Opendigitalradio DAB Multiplexer
+Documentation=https://github.com/Opendigitalradio/ODR-DabMux man:DabMux(1)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/odr-dabmux /etc/odr-dabmux/dab.mux
+User=odr-dabmux
+Group=odr-dabmux
+
+[Install]
+WantedBy=multi-user.target

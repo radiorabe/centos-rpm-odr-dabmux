@@ -9,3 +9,12 @@ curl -o /etc/yum.repos.d/home:radiorabe:dab.repo \
      http://download.opensuse.org/repositories/home:/radiorabe:/dab/CentOS_7/home:radiorabe:dab.repo
      
 yum install odr-dabmux
+```
+
+### Running odr-dabmux through systemd
+
+```bash
+cp /usr/share/doc/odr-dabmux-1.0.0/example.mux /etc/odr-dabmux/dab.mux
+
+systemctl start odr-dabmux
+```

@@ -33,6 +33,7 @@ Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 License:        GPLv3+
 URL:            https://github.com/Opendigitalradio/%{reponame}
 Source0:        https://github.com/Opendigitalradio/%{reponame}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:        odr-dabmux.service
 
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
@@ -52,6 +53,7 @@ Opendigitalradio project.
 
 %prep
 %setup -q -n %{reponame}-%{version}
+cp %SOURCE1 .
 
 
 %build
@@ -67,6 +69,10 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 %make_install
 
+# Install the systemd configuration
+install -d %{buildroot}/%{_libdir}/systemd/system
+install odr-dabmux.service %{buildroot}/%{_libdir}/systemd/system/
+
 # Rename the README.md to prevent a name clash with the top-level README.md
 mv doc/README.md doc/README-ODR-DabMux.md
 
@@ -74,11 +80,26 @@ mv doc/README.md doc/README-ODR-DabMux.md
 mkdir -p %{buildroot}%{_mandir}/man1
 mv doc/DabMux.1 %{buildroot}%{_mandir}/man1/
 
+# Install system directories
+install -d %{buildroot}/%{_sysconfdir}/%{name}
+install -d %{buildroot}/%{_sharedstatedir}/%{name}
+
+
+%pre
+getent group odr-dabmux >/dev/null || groupadd -r odr-dabmux
+getent passwd odr-dabmux >/dev/null || \
+    useradd -r -g odr-dabmux -d /var/lib/odr-dabmux -m \
+    -c "odr-dabmux system user account" odr-dabmux
+exit 0
+
 
 %files
 %doc ChangeLog README.md doc/*.txt doc/README-ODR-DabMux.md doc/*.mux
+%dir %{_sysconfdir}/%{name}
+%dir %attr(-, odr-dabmux, odr-dabmux) %{_sharedstatedir}/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
+%{_libdir}/systemd/system/*
 
 
 
