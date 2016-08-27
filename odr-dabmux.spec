@@ -87,10 +87,10 @@ install -d %{buildroot}/%{_sysconfdir}/%{name}
 
 
 %pre
-getent group odr-dabmux >/dev/null || groupadd -r odr-dabmux
-getent passwd odr-dabmux >/dev/null || \
-    useradd -r -g odr-dabmux -d /dev/null -m -s /sbin/nologin \
-    -c "odr-dabmux system user account" odr-dabmux
+getent group %{name} >/dev/null || groupadd -r %{name}
+getent passwd %{name} >/dev/null || \
+    useradd -r -g %{name} -d /dev/null -m -s /sbin/nologin \
+    -c "%{name} system user account" %{name}
 exit 0
 
 
