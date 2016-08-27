@@ -84,13 +84,12 @@ mv doc/DabMux.1 %{buildroot}%{_mandir}/man1/
 
 # Install system directories
 install -d %{buildroot}/%{_sysconfdir}/%{name}
-install -d %{buildroot}/%{_sharedstatedir}/%{name}
 
 
 %pre
 getent group odr-dabmux >/dev/null || groupadd -r odr-dabmux
 getent passwd odr-dabmux >/dev/null || \
-    useradd -r -g odr-dabmux -d /var/lib/odr-dabmux -m -s /sbin/nologin \
+    useradd -r -g odr-dabmux -d /dev/null -m -s /sbin/nologin \
     -c "odr-dabmux system user account" odr-dabmux
 exit 0
 
@@ -110,7 +109,6 @@ exit 0
 %files
 %doc ChangeLog README.md doc/*.txt doc/README-ODR-DabMux.md doc/*.mux
 %dir %{_sysconfdir}/%{name}
-%dir %attr(-, odr-dabmux, odr-dabmux) %{_sharedstatedir}/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_unitdir}/%{name}.service
