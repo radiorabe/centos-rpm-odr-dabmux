@@ -1,0 +1,20 @@
+[Unit]
+Description=Opendigitalradio DAB Multiplexer
+Documentation=https://github.com/Opendigitalradio/ODR-DabMux man:DabMux(1)
+Wants=network-online.target
+After=network-online.target sound.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/odr-dabmux /etc/odr-dabmux/dab.mux
+User=odr-dabmux
+Group=odr-dabmux
+
+# odr-dabmux uses real-time scheduling (with SCHED_RR and the lowest priority)
+# Let systemd change the CPU scheduler policy and priority beforhand, so that
+# root privilegs can be avoided.
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=1
+
+[Install]
+WantedBy=multi-user.target

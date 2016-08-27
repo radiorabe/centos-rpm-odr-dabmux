@@ -27,21 +27,25 @@
 
 Name:           odr-dabmux
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
 License:        GPLv3+
 URL:            https://github.com/Opendigitalradio/%{reponame}
 Source0:        https://github.com/Opendigitalradio/%{reponame}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:        https://raw.githubusercontent.com/radiorabe/centos-rpm-%{name}/master/%{name}.service
 
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libfec-odr-devel
+BuildRequires:  systemd
 BuildRequires:  zeromq-devel
 Requires:       boost
 Requires:       libcurl
 Requires:       libfec-odr
+Requires:       shadow-utils
 Requires:       zeromq
+%{?systemd_requires}
 
 %description
 ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer compliant to
@@ -67,6 +71,10 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 %make_install
 
+# Install the systemd service unit
+install -d %{buildroot}/%{_unitdir}
+install %{SOURCE1} %{buildroot}/%{_unitdir}
+
 # Rename the README.md to prevent a name clash with the top-level README.md
 mv doc/README.md doc/README-ODR-DabMux.md
 
@@ -74,15 +82,44 @@ mv doc/README.md doc/README-ODR-DabMux.md
 mkdir -p %{buildroot}%{_mandir}/man1
 mv doc/DabMux.1 %{buildroot}%{_mandir}/man1/
 
+# Install system directories
+install -d %{buildroot}/%{_sysconfdir}/%{name}
+
+
+%pre
+getent group %{name} >/dev/null || groupadd -r %{name}
+getent passwd %{name} >/dev/null || \
+    useradd -r -g %{name} -d /dev/null -m -s /sbin/nologin \
+    -c "%{name} system user account" %{name}
+exit 0
+
+
+%post
+%systemd_post %{name}.service
+
+
+%preun
+%systemd_preun %{name}.service
+
+
+%postun
+%systemd_postun_with_restart %{name}.service
+
 
 %files
 %doc ChangeLog README.md doc/*.txt doc/README-ODR-DabMux.md doc/*.mux
+%dir %{_sysconfdir}/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
+%{_unitdir}/%{name}.service
 
 
 
 %changelog
+* Sat Aug 27 2016 Christian Affolter <c.affolter@purplehaze.ch> - 1.0.0-2
+- Added a dedicated system user and a systemd service unit for starting odr-dabmux
+  based on the original work done by Lucas Bickel <hairmare@rabe.ch>
+
 * Sun Aug 21 2016 Christian Affolter <c.affolter@purplehaze.ch> - 1.0.0-1
 - Initial release
 
