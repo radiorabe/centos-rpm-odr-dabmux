@@ -42,6 +42,7 @@ BuildRequires:  zeromq-devel
 Requires:       boost
 Requires:       libcurl
 Requires:       libfec-odr
+Requires:       shadow-utils
 Requires:       zeromq
 
 %description
@@ -88,7 +89,7 @@ install -d %{buildroot}/%{_sharedstatedir}/%{name}
 %pre
 getent group odr-dabmux >/dev/null || groupadd -r odr-dabmux
 getent passwd odr-dabmux >/dev/null || \
-    useradd -r -g odr-dabmux -d /var/lib/odr-dabmux -m \
+    useradd -r -g odr-dabmux -d /var/lib/odr-dabmux -m -s /sbin/nologin \
     -c "odr-dabmux system user account" odr-dabmux
 exit 0
 
