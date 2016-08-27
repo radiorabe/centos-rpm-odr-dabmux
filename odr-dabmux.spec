@@ -38,12 +38,14 @@ Source1:        https://raw.githubusercontent.com/radiorabe/centos-rpm-%{name}/m
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libfec-odr-devel
+BuildRequires:  systemd
 BuildRequires:  zeromq-devel
 Requires:       boost
 Requires:       libcurl
 Requires:       libfec-odr
 Requires:       shadow-utils
 Requires:       zeromq
+%{?systemd_requires}
 
 %description
 ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer compliant to
@@ -54,7 +56,6 @@ Opendigitalradio project.
 
 %prep
 %setup -q -n %{reponame}-%{version}
-cp %SOURCE1 .
 
 
 %build
@@ -70,9 +71,9 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 %make_install
 
-# Install the systemd configuration
-install -d %{buildroot}/%{_libdir}/systemd/system
-install odr-dabmux.service %{buildroot}/%{_libdir}/systemd/system/
+# Install the systemd service unit
+install -d %{buildroot}/%{_unitdir}
+install %{SOURCE1} %{buildroot}/%{_unitdir}
 
 # Rename the README.md to prevent a name clash with the top-level README.md
 mv doc/README.md doc/README-ODR-DabMux.md
@@ -94,13 +95,25 @@ getent passwd odr-dabmux >/dev/null || \
 exit 0
 
 
+%post
+%systemd_post %{name}.service
+
+
+%preun
+%systemd_preun %{name}.service
+
+
+%postun
+%systemd_postun_with_restart %{name}.service
+
+
 %files
 %doc ChangeLog README.md doc/*.txt doc/README-ODR-DabMux.md doc/*.mux
 %dir %{_sysconfdir}/%{name}
 %dir %attr(-, odr-dabmux, odr-dabmux) %{_sharedstatedir}/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
-%{_libdir}/systemd/system/*
+%{_unitdir}/%{name}.service
 
 
 
