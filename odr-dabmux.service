@@ -10,5 +10,11 @@ ExecStart=/usr/bin/odr-dabmux /etc/odr-dabmux/dab.mux
 User=odr-dabmux
 Group=odr-dabmux
 
+# odr-dabmux uses real-time scheduling (with SCHED_RR and the lowest priority)
+# Let systemd change the CPU scheduler policy and priority beforhand, so that
+# root privilegs can be avoided.
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=1
+
 [Install]
 WantedBy=multi-user.target
