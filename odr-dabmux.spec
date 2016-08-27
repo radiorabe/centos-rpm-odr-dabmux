@@ -33,7 +33,7 @@ Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 License:        GPLv3+
 URL:            https://github.com/Opendigitalradio/%{reponame}
 Source0:        https://github.com/Opendigitalradio/%{reponame}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:        odr-dabmux.service
+Source1:        https://raw.githubusercontent.com/radiorabe/centos-rpm-%{name}/master/%{name}.service
 
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
