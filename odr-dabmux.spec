@@ -27,7 +27,7 @@
 
 Name:           odr-dabmux
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
 License:        GPLv3+
@@ -116,6 +116,10 @@ exit 0
 
 
 %changelog
+* Sat Aug 27 2016 Christian Affolter <c.affolter@purplehaze.ch> - 1.0.0-2
+- Added a dedicated system user and a systemd service unit for starting odr-dabmux
+  based on the original work done by Lucas Bickel <hairmare@rabe.ch>
+
 * Sun Aug 21 2016 Christian Affolter <c.affolter@purplehaze.ch> - 1.0.0-1
 - Initial release
 
