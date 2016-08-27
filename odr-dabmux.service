@@ -2,7 +2,7 @@
 Description=Opendigitalradio DAB Multiplexer
 Documentation=https://github.com/Opendigitalradio/ODR-DabMux man:DabMux(1)
 Wants=network-online.target
-After=network-online.target
+After=network-online.target sound.target
 
 [Service]
 Type=simple
