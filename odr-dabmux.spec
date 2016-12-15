@@ -26,14 +26,14 @@
 %define reponame ODR-DabMux
 
 Name:           odr-dabmux
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
 License:        GPLv3+
 URL:            https://github.com/Opendigitalradio/%{reponame}
 Source0:        https://github.com/Opendigitalradio/%{reponame}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:        https://raw.githubusercontent.com/radiorabe/centos-rpm-%{name}/master/%{name}.service
+Source1:        odr-dabmux.service
 
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
@@ -116,6 +116,9 @@ exit 0
 
 
 %changelog
+* Sat Sep  3 2016 Lucas Bickel <hairmare@rabe.ch> - 1.1.0-1
+- Version bump
+
 * Sat Aug 27 2016 Christian Affolter <c.affolter@purplehaze.ch> - 1.0.0-2
 - Added a dedicated system user and a systemd service unit for starting odr-dabmux
   based on the original work done by Lucas Bickel <hairmare@rabe.ch>
