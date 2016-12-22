@@ -6,6 +6,9 @@ After=network-online.target sound.target
 
 [Service]
 Type=simple
+ExecStartPre=-/bin/mkdir -p /var/tmp/dabmux
+ExecStartPre=-/bin/mkfifo --mode=644 /var/tmp/dabmux/odr-dabmux-local-01.fifo
+ExecStartPre=-/bin/chown odr-dabmux:odr-dabmux /var/tmp/dabmux/odr-dabmux-local-01.fifo
 ExecStart=/usr/bin/odr-dabmux /etc/odr-dabmux/dab.mux
 User=odr-dabmux
 Group=odr-dabmux
