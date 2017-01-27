@@ -1,8 +1,8 @@
 #
 # spec file for package odr-dabmux
 #
-# Copyright (c) 2016 Radio Bern RaBe
-#                    http://www.rabe.ch
+# Copyright (c) 2016 - 2017 Radio Bern RaBe
+#                           http://www.rabe.ch
 #
 # This program is free software: you can redistribute it and/or
 # modify it under the terms of the GNU Affero General Public 
@@ -26,7 +26,7 @@
 %define reponame ODR-DabMux
 
 Name:           odr-dabmux
-Version:        1.1.0
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
@@ -37,12 +37,10 @@ Source1:        odr-dabmux.service
 
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  libfec-odr-devel
 BuildRequires:  systemd
 BuildRequires:  zeromq-devel
 Requires:       boost
 Requires:       libcurl
-Requires:       libfec-odr
 Requires:       shadow-utils
 Requires:       zeromq
 %{?systemd_requires}
@@ -60,9 +58,7 @@ Opendigitalradio project.
 
 %build
 autoreconf -fi
-%configure --disable-static \
-           --enable-input-zeromq \
-           --enable-output-zeromq
+%configure --disable-static
 
 make %{?_smp_mflags}
 
@@ -116,6 +112,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 27 2017 Christian Affolter <c.affolter@purplehaze.ch> - 1.2.0-1
+- Version bump to 1.2.0, removed libfec dependency which is bundled now
+
 * Sat Sep  3 2016 Lucas Bickel <hairmare@rabe.ch> - 1.1.0-1
 - Version bump
 
@@ -125,4 +124,3 @@ exit 0
 
 * Sun Aug 21 2016 Christian Affolter <c.affolter@purplehaze.ch> - 1.0.0-1
 - Initial release
-
