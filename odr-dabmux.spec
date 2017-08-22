@@ -26,7 +26,7 @@
 %define reponame ODR-DabMux
 
 Name:           odr-dabmux
-Version:        1.2.1
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
@@ -112,6 +112,9 @@ exit 0
 
 
 %changelog
+* Tue Aug 22 2017 Christian Affolter <c.affolter@purplehaze.ch> - 1.3.0-1
+- Version bump to 1.3.0
+
 * Fri Feb 03 2017 Christian Affolter <c.affolter@purplehaze.ch> - 1.2.1-1
 - Version bump to 1.2.1
 
