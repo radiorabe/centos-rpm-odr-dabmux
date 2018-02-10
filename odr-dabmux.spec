@@ -74,7 +74,7 @@ install %{SOURCE1} %{buildroot}/%{_unitdir}
 # Rename the README.md to prevent a name clash with the top-level README.md
 mv doc/README.md doc/README-ODR-DabMux.md
 
-# Move the man page to it's proper location
+# Move the man page to its proper location
 mkdir -p %{buildroot}%{_mandir}/man1
 mv doc/DabMux.1 %{buildroot}%{_mandir}/man1/
 
