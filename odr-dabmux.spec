@@ -46,9 +46,9 @@ Requires:       zeromq
 %{?systemd_requires}
 
 %description
-ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer compliant to
-ETSI EN 300 401. It is the continuation of the work started by the
-Communications Research Center Canada on CRC-DabMux, and is now pursued in the
+ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer compliant to ETSI
+EN 300 401. It is the continuation of the work started by the Communications
+Research Center Canada on CRC-DabMux, and is now pursued in the
 Opendigitalradio project.
 
 
