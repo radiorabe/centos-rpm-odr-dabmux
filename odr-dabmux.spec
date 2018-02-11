@@ -1,7 +1,7 @@
 #
 # spec file for package odr-dabmux
 #
-# Copyright (c) 2016 - 2017 Radio Bern RaBe
+# Copyright (c) 2016 - 2018 Radio Bern RaBe
 #                           http://www.rabe.ch
 #
 # This program is free software: you can redistribute it and/or
@@ -26,7 +26,7 @@
 %define reponame ODR-DabMux
 
 Name:           odr-dabmux
-Version:        1.3.0
+Version:        1.3.3
 Release:        1%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
@@ -46,9 +46,9 @@ Requires:       zeromq
 %{?systemd_requires}
 
 %description
-ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer compliant to
-ETSI EN 300 401. It is the continuation of the work started by the
-Communications Research Center Canada on CRC-DabMux, and is now pursued in the
+ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer compliant to ETSI
+EN 300 401. It is the continuation of the work started by the Communications
+Research Center Canada on CRC-DabMux, and is now pursued in the
 Opendigitalradio project.
 
 
@@ -74,7 +74,7 @@ install %{SOURCE1} %{buildroot}/%{_unitdir}
 # Rename the README.md to prevent a name clash with the top-level README.md
 mv doc/README.md doc/README-ODR-DabMux.md
 
-# Move the man page to it's proper location
+# Move the man page to its proper location
 mkdir -p %{buildroot}%{_mandir}/man1
 mv doc/DabMux.1 %{buildroot}%{_mandir}/man1/
 
@@ -112,6 +112,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 10 2018 Christian Affolter <c.affolter@purplehaze.ch> - 1.3.3-1
+- Version bump to 1.3.3
+
 * Tue Aug 22 2017 Christian Affolter <c.affolter@purplehaze.ch> - 1.3.0-1
 - Version bump to 1.3.0
 
