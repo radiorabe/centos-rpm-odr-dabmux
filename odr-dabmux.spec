@@ -26,8 +26,8 @@
 %define reponame ODR-DabMux
 
 Name:           odr-dabmux
-Version:        2.2.0
-Release:        2%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
 License:        GPLv3+
@@ -113,6 +113,9 @@ exit 0
 
 
 %changelog
+* Sun Dec  9 2018 Lucas Bickel <hairmare@rabe.ch> - 2.3.0-1
+- Version bump to 2.3.0
+
 * Sun Dec  9 2018 Lucas Bickel <hairmare@rabe.ch> - 2.2.0-2
 - Remove unrecognized --disable-static option
 - Add gcc-c++ builddep since it isn't indirectly included anymore
