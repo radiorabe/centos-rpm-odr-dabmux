@@ -26,7 +26,7 @@
 %define reponame ODR-DabMux
 
 Name:           odr-dabmux
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        ODR-DabMux is a DAB (Digital Audio Broadcasting) multiplexer.
 
@@ -35,6 +35,7 @@ URL:            https://github.com/Opendigitalradio/%{reponame}
 Source0:        https://github.com/Opendigitalradio/%{reponame}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        odr-dabmux.service
 
+BuildRequires:  gcc-c++
 BuildRequires:  boost-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  systemd
@@ -58,7 +59,7 @@ Opendigitalradio project.
 
 %build
 autoreconf -fi
-%configure --disable-static
+%configure
 
 make %{?_smp_mflags}
 
@@ -112,6 +113,13 @@ exit 0
 
 
 %changelog
+* Sun Dec  9 2018 Lucas Bickel <hairmare@rabe.ch> - 2.3.0-1
+- Version bump to 2.3.0
+
+* Sun Dec  9 2018 Lucas Bickel <hairmare@rabe.ch> - 2.2.0-2
+- Remove unrecognized --disable-static option
+- Add gcc-c++ builddep since it isn't indirectly included anymore
+
 * Sat Aug 25 2018 Christian Affolter <c.affolter@purplehaze.ch> - 2.2.0-1
 - Version bump to 2.2.0
 
